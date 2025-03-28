@@ -26,6 +26,11 @@ namespace EComWebApi.Controllers
             //return Ok(await _context.Products.ToListAsync());
         }
 
+        [HttpGet("user/{userId}/{productId}")]
+        public async Task<ActionResult<IEnumerable<Review>>> GetUserProductReview(string userId, int productId){
+            return Ok(await _context.Reviews.Where(r => r.ProductId == productId && r.UserId == userId).ToListAsync());
+        }
+
         [HttpPost]
         public async Task<IActionResult> CreateProductReview(Review review){
             _context.Reviews.Add(review);
