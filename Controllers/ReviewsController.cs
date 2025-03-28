@@ -28,7 +28,11 @@ namespace EComWebApi.Controllers
 
         [HttpGet("user/{userId}/{productId}")]
         public async Task<ActionResult<Review>> GetUserProductReview(string userId, int productId){
-            return Ok(await _context.Reviews.Where(r => r.ProductId == productId && r.UserId == userId).FirstOrDefaultAsync());
+            var review = await _context.Reviews.Where(r => r.ProductId == productId && r.UserId == userId).FirstOrDefaultAsync();
+            if (review == null){
+                return NotFound();
+            }
+            return Ok(review);
         }
 
         [HttpPost]
