@@ -40,7 +40,7 @@ namespace EComWebApi.Controllers
             {
                 return BadRequest("Invalid user ID");
             }
-            var profile = await _context.UserProfiles.FirstOrDefaultAsync(u => u.Id == uId);
+            var profile = await _context.UserProfiles.FindAsync(uId);
             if (profile == null)
                 return NotFound();
             return Ok(profile);
