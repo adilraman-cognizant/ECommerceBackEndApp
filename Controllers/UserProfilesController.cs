@@ -34,7 +34,6 @@ namespace EComWebApi.Controllers
 
         // GET api/userprofiles/{userId}
         [HttpGet("userId")]
-        [Authorize]
         public async Task<IActionResult> GetUserProfile(string userId)
         {
             if (!int.TryParse(userId, out int uId))
