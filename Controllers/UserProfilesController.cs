@@ -35,9 +35,13 @@ namespace EComWebApi.Controllers
         // GET api/userprofiles/{userId}
         [HttpGet("userId")]
         [Authorize]
-        public async Task<IActionResult> GetUserProfile(int userId)
+        public async Task<IActionResult> GetUserProfile(string userId)
         {
-            var profile = await _context.UserProfiles.FirstOrDefaultAsync(u => u.Id == userId);
+            if (!int.TryParse(userId, out int uId))
+            {
+                return BadRequest("Invalid user ID");
+            }
+            var profile = await _context.UserProfiles.FirstOrDefaultAsync(u => u.Id == uId);
             if (profile == null)
                 return NotFound();
             return Ok(profile);
