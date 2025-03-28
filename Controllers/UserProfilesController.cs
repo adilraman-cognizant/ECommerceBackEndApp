@@ -32,6 +32,17 @@ namespace EComWebApi.Controllers
             return Ok(profile);
         }
 
+        // GET api/userprofiles/{userId}
+        [HttpGet("userId")]
+        [Authorize]
+        public async Task<IActionResult> GetUserProfile(int userId)
+        {
+            var profile = await _context.UserProfiles.FirstOrDefaultAsync(u => u.Id == userId);
+            if (profile == null)
+                return NotFound();
+            return Ok(profile);
+        }
+
         // PUT api/userprofiles/me
         [HttpPut("me")]
         [Authorize]
